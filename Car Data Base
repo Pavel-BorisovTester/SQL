@@ -145,7 +145,7 @@ HAVING SUM(value) < 10000
 
 
 //MAX Quantity of Body per Supplier
-Select  Suppliers.Name AS Поставщик, AVG(value) AS Среднее_количество, MAX(body) AS Кузов FROM Suppliers
+Select  Suppliers.Name AS Поставщик, ROUND(AVG(value), 2) AS Среднее_количество, MAX(body) AS Кузов FROM Suppliers
 JOIN Country_of_Supplier ON Suppliers.Country_id = Country_of_Supplier.id
 JOIN Cars ON Suppliers.id = Cars.Supply_id
 JOIN Car_body ON Cars.Car_body_id = Car_body.id
@@ -154,3 +154,28 @@ JOIN Quantity ON Models.id = Quantity.Model_id
 Group BY Suppliers.Name
 Order by Среднее_количество
 DESC
+
+
+
+//INSERT NEW SUPPLIER
+INSERT INTO Suppliers (id, Name, Country_id) VALUES (7, 'USA_Motors', 3);
+INSERT INTO Cars (id, Model_id, Price, Car_body_id, Car_Year, Manufacturer_id, Supply_id) VALUES (11, 3, 65000, 3, 2019, 7, 7);
+
+
+
+//UPDATE Strings in Cars Table
+UPDATE Cars
+SET Model_id = 5
+Where id = 11
+
+UPDATE Cars
+SET Car_body_id = 2
+Where id = 11
+
+//Result
+Select * FROM Suppliers
+JOIN Country_of_Supplier ON Suppliers.Country_id = Country_of_Supplier.id
+JOIN Cars ON Suppliers.id = Cars.Supply_id
+JOIN Car_body ON Cars.Car_body_id = Car_body.id
+JOIN Models ON Cars.Model_id = Models.id
+JOIN Quantity ON Models.id = Quantity.Model_id
